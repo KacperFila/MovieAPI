@@ -1112,6 +1112,19 @@
         "runtime": {
           "bin/placeholder/ProjektNTP.Domain.dll": {}
         }
+      },
+      "ProjektNTP.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ProjektNTP.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ProjektNTP.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjektNTP.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -3011,6 +3024,11 @@
       "type": "project",
       "path": "../ProjektNTP.Domain/ProjektNTP.Domain.csproj",
       "msbuildProject": "../ProjektNTP.Domain/ProjektNTP.Domain.csproj"
+    },
+    "ProjektNTP.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../ProjektNTP.Infrastructure/ProjektNTP.Infrastructure.csproj",
+      "msbuildProject": "../ProjektNTP.Infrastructure/ProjektNTP.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3018,7 +3036,8 @@
       "Microsoft.EntityFrameworkCore >= 8.0.0-preview.2.23128.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0-preview.2.23128.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0-preview.2.23128.3",
-      "ProjektNTP.Application >= 1.0.0"
+      "ProjektNTP.Application >= 1.0.0",
+      "ProjektNTP.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3050,6 +3069,9 @@
           "projectReferences": {
             "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Application\\ProjektNTP.Application.csproj": {
               "projectPath": "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Application\\ProjektNTP.Application.csproj"
+            },
+            "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Infrastructure\\ProjektNTP.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Infrastructure\\ProjektNTP.Infrastructure.csproj"
             }
           }
         }

@@ -11,7 +11,8 @@
           "Microsoft.EntityFrameworkCore": "8.0.0-preview.2.23128.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.0-preview.2.23128.3",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0-preview.2.23128.3",
-          "ProjektNTP.Application": "1.0.0"
+          "ProjektNTP.Application": "1.0.0",
+          "ProjektNTP.Infrastructure": "1.0.0"
         },
         "runtime": {
           "ProjektNTP.Presentation.dll": {}
@@ -670,6 +671,14 @@
         "runtime": {
           "ProjektNTP.Domain.dll": {}
         }
+      },
+      "ProjektNTP.Infrastructure/1.0.0": {
+        "dependencies": {
+          "ProjektNTP.Application": "1.0.0"
+        },
+        "runtime": {
+          "ProjektNTP.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -1119,6 +1128,11 @@
       "sha512": ""
     },
     "ProjektNTP.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProjektNTP.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

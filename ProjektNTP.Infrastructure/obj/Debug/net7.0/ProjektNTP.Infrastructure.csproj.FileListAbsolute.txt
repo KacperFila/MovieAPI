@@ -1,0 +1,17 @@
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Infrastructure.deps.json
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Infrastructure.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Infrastructure.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Application.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Domain.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Application.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Domain.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.AssemblyInfo.cs
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.csproj.CopyComplete
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\refint\ProjektNTP.Infrastructure.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ref\ProjektNTP.Infrastructure.dll
