@@ -1,4 +1,6 @@
-﻿namespace ProjektNTP.Entities;
+﻿using ProjektNTP.Domain.Entities;
+
+namespace ProjektNTP.Entities;
 
 public class Role
 {

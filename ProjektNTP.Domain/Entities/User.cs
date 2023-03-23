@@ -1,6 +1,6 @@
-﻿using ProjektNTP.Domain.Entities;
+﻿using ProjektNTP.Entities;
 
-namespace ProjektNTP.Entities;
+namespace ProjektNTP.Domain.Entities;
 
 public class User
 {
@@ -12,5 +12,5 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public Role Role { get; set; } = default!;
     public Guid RoleId { get; set; }
-    public List<Showing> Showings { get; set; }
+    public List<Reservation>? Reservations { get; set; }
 }

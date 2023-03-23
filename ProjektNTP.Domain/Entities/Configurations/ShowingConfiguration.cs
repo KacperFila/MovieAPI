@@ -9,6 +9,6 @@ public class ShowingConfiguration : IEntityTypeConfiguration<Showing>
     {
         builder.HasOne(s => s.Movie).WithMany(m => m.Showings);
         builder.HasOne(s => s.Cinema).WithMany(c => c.Showings);
-        
+        builder.HasMany(s => s.Reservations).WithOne(r => r.Showing);
     }
 }
