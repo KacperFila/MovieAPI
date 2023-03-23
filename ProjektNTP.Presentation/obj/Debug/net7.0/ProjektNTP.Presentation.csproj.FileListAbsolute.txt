@@ -84,3 +84,5 @@ C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\ProjektNTP.Domain.dll
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\ProjektNTP.Application.pdb
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\ProjektNTP.Domain.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll

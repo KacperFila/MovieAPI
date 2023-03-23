@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjektNTP.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class ReservationsMoviesShowingsAddressCinemasAdd : Migration
+    public partial class MovieCinemaReservationShowingAdd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -111,30 +111,6 @@ namespace ProjektNTP.Domain.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ShowingUser",
-                columns: table => new
-                {
-                    ShowingsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ViewersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShowingUser", x => new { x.ShowingsId, x.ViewersId });
-                    table.ForeignKey(
-                        name: "FK_ShowingUser_Showings_ShowingsId",
-                        column: x => x.ShowingsId,
-                        principalTable: "Showings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ShowingUser_Users_ViewersId",
-                        column: x => x.ViewersId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Cinemas_AddressId",
                 table: "Cinemas",
@@ -159,11 +135,6 @@ namespace ProjektNTP.Domain.Migrations
                 name: "IX_Showings_MovieId",
                 table: "Showings",
                 column: "MovieId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShowingUser_ViewersId",
-                table: "ShowingUser",
-                column: "ViewersId");
         }
 
         /// <inheritdoc />
@@ -171,9 +142,6 @@ namespace ProjektNTP.Domain.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Reservations");
-
-            migrationBuilder.DropTable(
-                name: "ShowingUser");
 
             migrationBuilder.DropTable(
                 name: "Showings");

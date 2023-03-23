@@ -12,8 +12,8 @@ using ProjektNTP;
 namespace ProjektNTP.Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230323171947_ReservationsMoviesShowingsAddressCinemasAdd")]
-    partial class ReservationsMoviesShowingsAddressCinemasAdd
+    [Migration("20230323211734_MovieCinemaReservationShowingAdd")]
+    partial class MovieCinemaReservationShowingAdd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -208,21 +208,6 @@ namespace ProjektNTP.Domain.Migrations
                     b.ToTable("UsersContactDetails");
                 });
 
-            modelBuilder.Entity("ShowingUser", b =>
-                {
-                    b.Property<Guid>("ShowingsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ViewersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ShowingsId", "ViewersId");
-
-                    b.HasIndex("ViewersId");
-
-                    b.ToTable("ShowingUser");
-                });
-
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Cinema", b =>
                 {
                     b.HasOne("ProjektNTP.Domain.Entities.Address", "Address")
@@ -237,13 +222,13 @@ namespace ProjektNTP.Domain.Migrations
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("ProjektNTP.Domain.Entities.Showing", "Showing")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("ShowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjektNTP.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -294,21 +279,6 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ShowingUser", b =>
-                {
-                    b.HasOne("ProjektNTP.Domain.Entities.Showing", null)
-                        .WithMany()
-                        .HasForeignKey("ShowingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjektNTP.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("ViewersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Cinema", b =>
                 {
                     b.Navigation("Showings");
@@ -319,6 +289,11 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("Showings");
                 });
 
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.Showing", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("ProjektNTP.Entities.Role", b =>
                 {
                     b.Navigation("Users");
@@ -326,6 +301,8 @@ namespace ProjektNTP.Domain.Migrations
 
             modelBuilder.Entity("ProjektNTP.Entities.User", b =>
                 {
+                    b.Navigation("Reservations");
+
                     b.Navigation("UserContactDetails")
                         .IsRequired();
                 });
