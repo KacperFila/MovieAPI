@@ -10,15 +10,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasOne(u => u.UserContactDetails).WithOne(ucd => ucd.User).HasForeignKey<UserContactDetails>(ucd => ucd.UserId);
         builder.HasOne(u => u.Role).WithMany(r => r.Users);
-        builder.HasMany(u => u.Showings).WithMany(s => s.Viewers)
-            .UsingEntity<Reservation>(
-                r => r.HasOne(x => x.Showing)
-                    .WithMany()
-                    .HasForeignKey(x => x.ShowingId),
-                r => r.HasOne(x => x.User)
-                    .WithMany()
-                    .HasForeignKey(x => x.UserId),
-                r => r.HasKey(x => x.Id)
-                );
+        builder.HasMany(u => u.Reservations).WithOne(r => r.User);
     }
 }

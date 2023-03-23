@@ -12,5 +12,5 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public Role Role { get; set; } = default!;
     public Guid RoleId { get; set; }
-    public List<Showing> Showings { get; set; }
+    public List<Reservation>? Reservations { get; set; }
 }

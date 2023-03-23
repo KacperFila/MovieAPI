@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/0w05b7T6/cKipmLzlkCiaOsmxQqWO429fcxFTMBX0LJZGDlcMVqpcyBSA2yfdwojSqI/oZDMK5S/LGGp8l6iw==",
+  "dgSpecHash": "dIWFP9ddBEa0gMuNOZVvX8k9NFZcKvTGQJm3Q9EhdPkd/aZbAN0B7WpvB560/7yE5giU3Ok4rGMLz1G3ZeGwPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Infrastructure\\ProjektNTP.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.0\\microsoft.data.sqlclient.5.1.0.nupkg.sha512",
