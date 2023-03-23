@@ -1,0 +1,14 @@
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\bin\Debug\net7.0\ProjektNTP.Domain.deps.json
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\bin\Debug\net7.0\ProjektNTP.Domain.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\bin\Debug\net7.0\ProjektNTP.Domain.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.csproj.AssemblyReference.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.AssemblyInfoInputs.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.AssemblyInfo.cs
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.csproj.CoreCompileInputs.cache
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\refint\ProjektNTP.Domain.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ref\ProjektNTP.Domain.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\bin\Debug\net7.0\ProjektNTP.Domain.runtimeconfig.json
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Domain\obj\Debug\net7.0\ProjektNTP.Domain.genruntimeconfig.cache
