@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ProjektNTP.Abstractions;
+using ProjektNTP.Domain.Abstractions;
 using ProjektNTP.Infrastructure.Repositories;
 
 namespace ProjektNTP.Infrastructure.Extensions;

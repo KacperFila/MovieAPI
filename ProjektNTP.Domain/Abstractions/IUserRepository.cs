@@ -1,6 +1,9 @@
 ﻿using ProjektNTP.Entities;
 
-namespace ProjektNTP.Abstractions;
+namespace ProjektNTP.Domain.Abstractions;
 
 public interface IUserRepository
-{ }
+{
+    public Task<Guid> Create(User user);
+
+}

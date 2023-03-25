@@ -88,3 +88,10 @@ C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\ProjektNTP.Infrastructure.dll
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\ProjektNTP.Infrastructure.pdb
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\obj\Debug\net7.0\ProjektNTP.Presentation.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Presentation\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -1,11 +1,11 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using ProjektNTP;
-using ProjektNTP.Abstractions;
 using ProjektNTP.Application.Extensions;
 using ProjektNTP.Application.Services;
+using ProjektNTP.Application.User.Dtos;
 using ProjektNTP.Entities;
 using ProjektNTP.Infrastructure.Extensions;
-using ProjektNTP.Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,20 @@ var connectionString = builder.Configuration.GetConnectionString("DevelopConnect
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(connectionString));
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.MapPost("user", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
+{
+    var validationResult = await validator.ValidateAsync(user);
+
+    if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
+    
+    var userCreated = await service.Create(user);
+    return Results.Created($"users/", userCreated);
+});
 app.Run();
