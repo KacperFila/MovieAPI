@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eJW3I4JYPJ8mh3ZOdTaonX4QQsUF+U/QO+ZyEfo1QM1D0pLqJRZWjsa6jbIRMqUSSD3FP5Ta25MrJU9MqhQBTg==",
+  "dgSpecHash": "/DbaAIwZ9tJYpGyoFU9tAetPYgSi2ou8qwtM+Gv4b1evqX29XwiHFHisrhI1a5TYHIKfiu188HW5cWmjhyx6NA==",
   "success": true,
   "projectFilePath": "C:\\Users\\kacpe\\Documents\\GitHub\\ProjektNTP\\ProjektNTP.Presentation\\ProjektNTP.Presentation.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
