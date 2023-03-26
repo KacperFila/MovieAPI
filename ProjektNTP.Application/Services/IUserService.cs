@@ -6,4 +6,5 @@ namespace ProjektNTP.Application.Services;
 public interface IUserService
 {
     public Task<Guid> Create(CreateUserDto user);
+    public Task<List<GetUserDto>> GetAllUsers();
 }

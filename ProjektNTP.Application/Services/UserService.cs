@@ -8,9 +8,11 @@ namespace ProjektNTP.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    public UserService(IUserRepository userRepository)
+    private readonly IMapper _mapper;
+    public UserService(IUserRepository userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
+        _mapper = mapper;
     }
 
     public async Task<Guid> Create(CreateUserDto user)
@@ -24,5 +26,12 @@ public class UserService : IUserService
         };
         var result = await _userRepository.Create(userToAdd);
         return result;
+    }
+
+    public async Task<List<GetUserDto>> GetAllUsers()
+    {
+        var result = await _userRepository.GetAllUsers();
+        var resultDto = _mapper.Map<List<Entities.User>,List<GetUserDto>>(result);
+        return resultDto;
     }
 }

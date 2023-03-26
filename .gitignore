@@ -35,3 +35,10 @@ Desktop.ini
 
 *.dll
 *.cache
+*.dll
+*.dll
+*.pdb
+*.pdb
+*.cache
+*.info
+*.info

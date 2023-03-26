@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using ProjektNTP.Application.Mappers;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
 using ProjektNTP.Domain.Validators;
@@ -12,5 +13,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IUserService, UserService>();
         services.AddValidatorsFromAssemblyContaining<UserValidator>();
+        services.AddAutoMapper(typeof(UserMappingProfile));
     }
 }

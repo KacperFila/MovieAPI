@@ -4,7 +4,6 @@ using ProjektNTP;
 using ProjektNTP.Application.Extensions;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
-using ProjektNTP.Entities;
 using ProjektNTP.Infrastructure.Extensions;
 using ProjektNTP.Infrastructure.Seeders;
 
@@ -39,4 +38,11 @@ app.MapPost("user", async (CreateUserDto user, IUserService service, IValidator<
     var userCreated = await service.Create(user);
     return Results.Created("users/", userCreated);
 });
+
+app.MapGet("users", async (IUserService service) =>
+{
+    var result = await service.GetAllUsers();
+    return Results.Ok(result);
+});
+
 app.Run();

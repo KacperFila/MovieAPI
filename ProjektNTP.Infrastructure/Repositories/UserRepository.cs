@@ -1,4 +1,4 @@
-﻿using ProjektNTP.Application.User.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjektNTP.Domain.Abstractions;
 using ProjektNTP.Entities;
 
@@ -18,6 +18,12 @@ public class UserRepository : IUserRepository
         await _context.AddAsync(user);
         await _context.SaveChangesAsync();
         return user.Id;
+    }
+
+    public async Task<List<User>> GetAllUsers()
+    {
+        var users = await _context.Users.ToListAsync();
+        return users;
     }
 }
 
