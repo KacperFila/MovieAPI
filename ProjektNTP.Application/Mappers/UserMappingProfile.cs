@@ -9,14 +9,9 @@ public class UserMappingProfile : Profile
     public UserMappingProfile()
     {
         CreateMap<CreateUserDto, Entities.User>();
-        CreateMap<GetUserDto, Entities.User>();
-        // .ForMember(u => u.UserContactDetails, opt => opt.MapFrom(src => new UserContactDetails
-        // {
-        //     Email = src.Email,
-        //     PhoneNumber = src.PhoneNumber
-        // }));
-        //.ForPath(u => u.Role.Name, opt => opt.MapFrom(src => src.RoleName));
-
-
+        CreateMap<Entities.User, GetUserDto>()
+            .ForMember(u => u.RoleName, opt => opt.MapFrom(user => user.Role.Name))
+            .ForMember(u => u.Email, opt => opt.MapFrom(user => user.UserContactDetails.Email))
+            .ForMember(u => u.PhoneNumber, opt => opt.MapFrom(user => user.UserContactDetails.PhoneNumber));
     }
 }

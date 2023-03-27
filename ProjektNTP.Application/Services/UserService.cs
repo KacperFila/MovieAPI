@@ -31,7 +31,15 @@ public class UserService : IUserService
     public async Task<List<GetUserDto>> GetAllUsers()
     {
         var result = await _userRepository.GetAllUsers();
-        var resultDto = _mapper.Map<List<Entities.User>,List<GetUserDto>>(result);
+
+        var resultDto = _mapper.Map<List<GetUserDto>>(result);
+        return resultDto;
+    }
+
+    public async Task<GetUserDto> GetUserById(Guid id)
+    {
+        var result = await _userRepository.GetUserById(id);
+        var resultDto = _mapper.Map<GetUserDto>(result);
         return resultDto;
     }
 }

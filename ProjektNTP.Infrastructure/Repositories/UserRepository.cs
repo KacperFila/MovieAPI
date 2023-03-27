@@ -20,10 +20,22 @@ public class UserRepository : IUserRepository
         return user.Id;
     }
 
-    public async Task<List<User>> GetAllUsers()
+    public async Task<List<User>?> GetAllUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users
+            .Include(u => u.Role)
+            .Include(u => u.UserContactDetails)
+            .ToListAsync();
         return users;
+    }
+
+    public async Task<User?> GetUserById(Guid id)
+    {
+        var user = await _context.Users
+            .Include(u => u.Role)
+            .Include(u => u.UserContactDetails)
+            .FirstOrDefaultAsync(u => u.Id == id);
+        return user;
     }
 }
 

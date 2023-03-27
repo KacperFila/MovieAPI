@@ -1,11 +1,14 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProjektNTP;
 using ProjektNTP.Application.Extensions;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
+using ProjektNTP.Entities;
 using ProjektNTP.Infrastructure.Extensions;
 using ProjektNTP.Infrastructure.Seeders;
+using ProjektNTP.Users;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,23 +29,6 @@ MovieCinemaSeeder.Seed(dbContext);
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
-
-
-app.MapPost("user", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
-{
-    var validationResult = await validator.ValidateAsync(user);
-
-    if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-    
-    var userCreated = await service.Create(user);
-    return Results.Created("users/", userCreated);
-});
-
-app.MapGet("users", async (IUserService service) =>
-{
-    var result = await service.GetAllUsers();
-    return Results.Ok(result);
-});
+app.AddUsersEndpoints();
 
 app.Run();

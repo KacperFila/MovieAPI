@@ -7,4 +7,5 @@ public interface IUserService
 {
     public Task<Guid> Create(CreateUserDto user);
     public Task<List<GetUserDto>> GetAllUsers();
+    public Task<GetUserDto> GetUserById(Guid id);
 }
