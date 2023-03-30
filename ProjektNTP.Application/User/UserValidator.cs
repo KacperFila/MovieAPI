@@ -7,10 +7,6 @@ public class UserValidator : AbstractValidator<User>
 {
     public UserValidator()
     {
-        bool isValidGuid(string id)
-        {
-            return Guid.TryParse(id, out var _);
-        }
         RuleFor(u => u.FirstName).Length(1, 20).WithMessage("First Name must be between 1 and 20!");
         RuleFor(u => u.LastName).Length(1, 20).WithMessage("Last Name must be between 1 and 20!");
         RuleFor(u => u.UserContactDetails).SetValidator(new UserContactDetailsValidator());
