@@ -12,7 +12,10 @@ public static class ServiceCollectionExtensions
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IMovieService, MovieService>();
+        
         services.AddValidatorsFromAssemblyContaining<UserValidator>();
+        
         services.AddAutoMapper(typeof(UserMappingProfile));
     }
 }
