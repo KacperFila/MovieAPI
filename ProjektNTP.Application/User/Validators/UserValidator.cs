@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using ProjektNTP.Entities;
+using ProjektNTP.Domain.Validators;
 
-namespace ProjektNTP.Domain.Validators;
+namespace ProjektNTP.Application.User.Validators;
 
-public class UserValidator : AbstractValidator<User>
+public class UserValidator : AbstractValidator<Entities.User>
 {
     public UserValidator()
     {

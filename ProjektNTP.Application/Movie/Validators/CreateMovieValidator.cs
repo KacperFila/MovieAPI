@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using ProjektNTP.Application.Movie.Dtos;
 
-namespace ProjektNTP.Application.Movie;
+namespace ProjektNTP.Application.Movie.Validators;
 
 public class CreateMovieValidator : AbstractValidator<CreateMovieDto>
 {

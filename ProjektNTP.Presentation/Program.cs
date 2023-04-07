@@ -1,14 +1,10 @@
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using ProjektNTP;
 using ProjektNTP.Application.Extensions;
-using ProjektNTP.Application.Services;
-using ProjektNTP.Application.User.Dtos;
-using ProjektNTP.Entities;
 using ProjektNTP.Infrastructure.Extensions;
 using ProjektNTP.Infrastructure.Seeders;
 using ProjektNTP.Movies;
+using ProjektNTP.Showings;
 using ProjektNTP.Users;
 
 
@@ -32,5 +28,6 @@ app.UseSwaggerUI();
 
 app.AddUsersEndpoints();
 app.AddMoviesEndpoints();
+app.AddShowingsEndpoints();
 
 app.Run();
