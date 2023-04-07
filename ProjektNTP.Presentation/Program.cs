@@ -8,6 +8,7 @@ using ProjektNTP.Application.User.Dtos;
 using ProjektNTP.Entities;
 using ProjektNTP.Infrastructure.Extensions;
 using ProjektNTP.Infrastructure.Seeders;
+using ProjektNTP.Movies;
 using ProjektNTP.Users;
 
 
@@ -30,5 +31,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.AddUsersEndpoints();
+app.AddMoviesEndpoints();
 
 app.Run();

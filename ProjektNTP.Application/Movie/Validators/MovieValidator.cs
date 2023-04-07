@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
-using ProjektNTP.Domain.Entities;
 
-namespace ProjektNTP.Domain.Validators;
+namespace ProjektNTP.Application.Movie;
 
-public class MovieValidator : AbstractValidator<Movie>
+public class MovieValidator : AbstractValidator<Domain.Entities.Movie>
 {
     public MovieValidator()
     {

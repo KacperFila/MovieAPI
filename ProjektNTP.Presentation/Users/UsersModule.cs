@@ -10,7 +10,7 @@ public static class UsersModule
     public static void AddUsersEndpoints(this IEndpointRouteBuilder app)
     {
         
-        app.MapPost("user", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
+        app.MapPost("users", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
             {
                 var validationResult = await validator.ValidateAsync(user);
 
@@ -31,7 +31,7 @@ public static class UsersModule
             return result.Any() ? Results.Ok(result) : Results.NotFound();
         })
             .WithName("GetAllUsers")
-            .Produces<List<GetUserDto>>(200)
+            .Produces<List<GetUserDto>>()
             .Produces(404)
             .WithTags("Users");
 
@@ -41,7 +41,7 @@ public static class UsersModule
             return result is not null ? Results.Ok(result) : Results.NotFound();
         })
             .WithName("GetUserById")
-            .Produces<GetUserDto>(200)
+            .Produces<GetUserDto>()
             .Produces(404)
             .WithTags("Users");
         

@@ -45,3 +45,7 @@ Desktop.ini
 *.dll
 *.pdb
 *.dll
+*.pdb
+*.pdb
+*.cache
+*.pdb

@@ -17,7 +17,7 @@ public class UserRepository : IUserRepository
     {
         await _context.AddAsync(user);
         await _context.SaveChangesAsync();
-        return user.Id;
+        return await Task.FromResult(user.Id);
     }
 
     public async Task<List<User>?> GetAllUsers()
@@ -26,7 +26,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .ToListAsync();
-        return users;
+        return await Task.FromResult(users);
     }
 
     public async Task<User?> GetUserById(Guid id)
@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .FirstOrDefaultAsync(u => u.Id == id);
-        return user;
+        return await Task.FromResult(user);
     }
 
     public async Task<bool> DeleteUserById(Guid id)
