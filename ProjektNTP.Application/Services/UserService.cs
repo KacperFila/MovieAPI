@@ -26,8 +26,8 @@ public class UserService : IUserService
             RoleId = user.RoleId,
             UserContactDetails = new UserContactDetails()
             {
-                Email = user.UserContactDetails.Email,
-                PhoneNumber = user.UserContactDetails.PhoneNumber
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
             }
         };
         var result = await _userRepository.Create(userToAdd);

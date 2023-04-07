@@ -11,7 +11,7 @@ public static class MoviesModule
 {
     public static void AddMoviesEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("movie", async (CreateMovieDto movie, IMovieService service, IValidator<CreateMovieDto> validator) =>
+        app.MapPost("movies", async (CreateMovieDto movie, IMovieService service, IValidator<CreateMovieDto> validator) =>
                 {
                     var validationResult = await validator.ValidateAsync(movie);
                     if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
@@ -37,7 +37,7 @@ public static class MoviesModule
             .Produces(404)
             .WithTags("Movies");
         
-        app.MapGet("movie/{id:guid}", async (IMovieService service, Guid id) =>
+        app.MapGet("movies/{id:guid}", async (IMovieService service, Guid id) =>
         {
             var movie = await service.GetMovieById(id);
             return movie is not null ? Results.Ok(movie) : Results.NotFound();
@@ -47,16 +47,26 @@ public static class MoviesModule
             .Produces(404)
             .WithTags("Movies");
 
-        app.MapPut("movie/{id:guid}", async (IMovieService service, Guid id, CreateMovieDto movie, IValidator<CreateMovieDto> validator) =>
+        app.MapPut("movies/{id:guid}", async (IMovieService service, Guid id, CreateMovieDto movie, IValidator<CreateMovieDto> validator) =>
             {
                 var validationResult = await validator.ValidateAsync(movie);
                 if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-            var updatedMovie = await service.UpdateMovie(id, movie);
+            var updatedMovie = await service.UpdateMovieById(id, movie);
             return updatedMovie ?  Results.Ok(id) : Results.NotFound();
         })
-            .WithName("UpdateMovie")
+            .WithName("UpdateMovieById")
             .Produces<Guid>()
             .Produces<IEnumerable<ValidationFailure>>(404)
             .WithTags("Movies");
+
+        app.MapDelete("movies/{id:guid}", async (IMovieService service, Guid id) =>
+        {
+            var deleteResult = await service.DeleteMovie(id);
+            return deleteResult ? Results.NoContent() : Results.NotFound();
+        })
+            .WithName("DeleteMovieById")
+            .Produces(204)
+            .Produces(404)
+            .WithTags("Movies");;
     }
 }

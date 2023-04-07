@@ -33,15 +33,16 @@ public class MovieService : IMovieService
         return await Task.FromResult(movieDto);
     }
 
-    public async Task<bool> UpdateMovie(Guid id, CreateMovieDto movie)
+    public async Task<bool> UpdateMovieById(Guid id, CreateMovieDto movie)
     {
         var userToUpdate = _mapper.Map<Domain.Entities.Movie>(movie);
-        var updatedUser = await _repository.UpdateMovie(id, userToUpdate);
+        var updatedUser = await _repository.UpdateMovieById(id, userToUpdate);
         return await Task.FromResult(updatedUser);
     }
 
-    public Task<bool> DeleteMovie(Guid id)
+    public async Task<bool> DeleteMovie(Guid id)
     {
-        throw new NotImplementedException();
+        var isUserDeleted = await _repository.DeleteMovie(id);
+        return await Task.FromResult(isUserDeleted);
     }
 }
