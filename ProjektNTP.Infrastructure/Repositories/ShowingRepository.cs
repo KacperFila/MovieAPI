@@ -40,20 +40,24 @@ public class ShowingRepository : IShowingRepository
 
     public async Task<bool> UpdateShowingById(Guid id, Showing showing)
     {
-        var showingToUpdate = _context.Showings.Any(s => s.Id == id);
-        if (!showingToUpdate) return await Task.FromResult(false);
-        var abc = await _context.Showings.FirstOrDefaultAsync(s => s.Id == id);
-        abc.MovieId = showing.MovieId;
-        abc.CinemaId = showing.CinemaId;
-        abc.StartTime = showing.StartTime;
+        var showingToUpdate = await _context.Showings.FirstOrDefaultAsync(s => s.Id == id);
+        if (showingToUpdate == null) return await Task.FromResult(false);
+        showingToUpdate.MovieId = showing.MovieId;
+        showingToUpdate.CinemaId = showing.CinemaId;
+        showingToUpdate.StartTime = showing.StartTime;
 
         await _context.SaveChangesAsync();
         return await Task.FromResult(true);
     }
 
-    public Task<bool> DeleteShowing(Guid id)
+    public async Task<bool> DeleteShowingById(Guid id)
     {
-        throw new NotImplementedException();
+        var deletedShowing = await _context.Showings.FirstOrDefaultAsync(s => s.Id == id);
+        if(deletedShowing is null) return await Task.FromResult(false);
+        _context.Remove(deletedShowing);
+        await _context.SaveChangesAsync();
+
+        return await Task.FromResult(true);
     }
 
     public async Task<bool> CinemaExistsAsync(Guid id)
@@ -61,6 +65,7 @@ public class ShowingRepository : IShowingRepository
         var cinema = await _context.Cinemas.AnyAsync(c => c.Id == id);
         return await Task.FromResult(cinema);
     }
+
     public async Task<bool> MovieExistsAsync(Guid id)
     {
         var movie = await _context.Movies.AnyAsync(c => c.Id == id);

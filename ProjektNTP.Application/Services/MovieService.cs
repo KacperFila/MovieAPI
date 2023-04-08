@@ -8,12 +8,13 @@ public class MovieService : IMovieService
 {
     private readonly IMovieRepository _repository;
     private readonly IMapper _mapper;
-    
+
     public MovieService(IMovieRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<Guid> CreateMovie(CreateMovieDto movie)
     {
         var movieFromDto = _mapper.Map<Domain.Entities.Movie>(movie);

@@ -15,9 +15,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<IShowingService, ShowingService>();
-        
+
         services.AddValidatorsFromAssemblyContaining<UserValidator>();
-        
+
         services.AddAutoMapper(typeof(UserMappingProfile));
     }
 }

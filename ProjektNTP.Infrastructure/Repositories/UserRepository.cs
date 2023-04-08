@@ -42,7 +42,7 @@ public class UserRepository : IUserRepository
     {
         var userToDelete = await _context.Users
             .FirstOrDefaultAsync(u => u.Id == id);
-        
+
         if (userToDelete == null) return await Task.FromResult(false);
         _context.Remove(userToDelete);
         await _context.SaveChangesAsync();
@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.UserContactDetails)
             .FirstOrDefaultAsync(u => u.Id == id);
         if (userToUpdate is null) return await Task.FromResult(false);
-        
+
         userToUpdate.UserContactDetails = user.UserContactDetails;
         userToUpdate.FirstName = user.FirstName;
         userToUpdate.LastName = user.LastName;
@@ -66,4 +66,3 @@ public class UserRepository : IUserRepository
         return await Task.FromResult(true);
     }
 }
-

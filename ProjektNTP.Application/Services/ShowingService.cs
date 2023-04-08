@@ -9,7 +9,7 @@ public class ShowingService : IShowingService
 {
     private readonly IShowingRepository _repository;
     private readonly IMapper _mapper;
-    
+
     public ShowingService(IShowingRepository repository, IMapper mapper)
     {
         _repository = repository;
@@ -42,8 +42,9 @@ public class ShowingService : IShowingService
         return await Task.FromResult(isShowingUpdated);
     }
 
-    public Task<bool> DeleteShowingById(Guid id)
+    public async Task<bool> DeleteShowingById(Guid id)
     {
-        throw new NotImplementedException();
+        var isShowingDeleted = await _repository.DeleteShowingById(id);
+        return await Task.FromResult(isShowingDeleted);
     }
 }

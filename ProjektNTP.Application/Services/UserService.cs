@@ -49,16 +49,16 @@ public class UserService : IUserService
         return resultDto;
     }
 
-    public async Task<bool> DeleteUserById(Guid id)
-    {
-        var deletedUser = await _userRepository.DeleteUserById(id);
-        return await Task.FromResult(deletedUser);
-    }
 
     public async Task<bool> UpdateUserById(Guid id, CreateUserDto userDto)
     {
         var mappedUser = _mapper.Map<Entities.User>(userDto);
         var updatedUser = await _userRepository.UpdateUserById(id, mappedUser);
         return updatedUser ? await Task.FromResult(true) : await Task.FromResult(false);
+    }
+    public async Task<bool> DeleteUserById(Guid id)
+    {
+        var deletedUser = await _userRepository.DeleteUserById(id);
+        return await Task.FromResult(deletedUser);
     }
 }

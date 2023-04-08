@@ -1,6 +1,4 @@
-﻿using ProjektNTP.Entities;
-
-namespace ProjektNTP.Domain.Entities;
+﻿namespace ProjektNTP.Domain.Entities;
 
 public class Showing
 {

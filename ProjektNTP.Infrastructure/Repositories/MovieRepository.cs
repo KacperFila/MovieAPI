@@ -7,11 +7,12 @@ namespace ProjektNTP.Infrastructure.Repositories;
 public class MovieRepository : IMovieRepository
 {
     private readonly AppDbContext _context;
+
     public MovieRepository(AppDbContext context)
     {
         _context = context;
     }
-    
+
     public async Task<Guid> CreateMovie(Movie movie)
     {
         await _context.Movies.AddAsync(movie);
@@ -52,6 +53,5 @@ public class MovieRepository : IMovieRepository
         _context.Remove(userToDelete);
         await _context.SaveChangesAsync();
         return await Task.FromResult(true);
-
     }
 }

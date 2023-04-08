@@ -10,6 +10,7 @@ namespace ProjektNTP.Application.Showing.Validators;
 public class CreateShowingValidator : AbstractValidator<CreateShowingDto>
 {
     private readonly IShowingRepository _repository;
+
     public CreateShowingValidator(IShowingRepository repository)
     {
         _repository = repository;
@@ -25,6 +26,7 @@ public class CreateShowingValidator : AbstractValidator<CreateShowingDto>
         var isCinemaExisting = await _repository.CinemaExistsAsync(cinemaId);
         return await Task.FromResult(isCinemaExisting);
     }
+
     private async Task<bool> MovieExistsInDatabase(Guid movieId, CancellationToken token)
     {
         var isMovieExisting = await _repository.MovieExistsAsync(movieId);

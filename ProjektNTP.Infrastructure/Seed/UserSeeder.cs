@@ -18,7 +18,7 @@ public static class UserSeeder
                 new()
                 {
                     Name = "Użytkownik"
-                },
+                }
             };
 
 
@@ -35,7 +35,6 @@ public static class UserSeeder
             var users = userGenerator.Generate(10);
             context.AddRange(users);
             context.SaveChanges();
-
         }
     }
 }
