@@ -37,11 +37,11 @@ public class ShowingService : IShowingService
         return await Task.FromResult(showingDto);
     }
 
-    public async Task<bool> UpdateShowingById(Guid id, CreateShowingDto newShowing)
+    public async Task<Guid?> UpdateShowingById(Guid id, CreateShowingDto newShowing)
     {
         var newShowingDto = _mapper.Map<Domain.Entities.Showing>(newShowing);
-        var isShowingUpdated = await _repository.UpdateShowingById(id, newShowingDto);
-        return await Task.FromResult(isShowingUpdated);
+        var updatedShowing = await _repository.UpdateShowingById(id, newShowingDto);
+        return await Task.FromResult(updatedShowing);
     }
 
     public async Task<bool> DeleteShowingById(Guid id)

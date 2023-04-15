@@ -38,16 +38,16 @@ public class ShowingRepository : IShowingRepository
         return await Task.FromResult(showings);
     }
 
-    public async Task<bool> UpdateShowingById(Guid id, Showing newShowing)
+    public async Task<Guid?> UpdateShowingById(Guid id, Showing newShowing)
     {
         var showingToUpdate = await _context.Showings.FirstOrDefaultAsync(s => s.Id == id);
-        if (showingToUpdate == null) return await Task.FromResult(false);
+        if (showingToUpdate == null) return await Task.FromResult<Guid?>(null);
         showingToUpdate.MovieId = newShowing.MovieId;
         showingToUpdate.CinemaId = newShowing.CinemaId;
         showingToUpdate.StartTime = newShowing.StartTime;
 
         await _context.SaveChangesAsync();
-        return await Task.FromResult(true);
+        return await Task.FromResult(showingToUpdate.Id);
     }
 
     public async Task<bool> DeleteShowingById(Guid id)

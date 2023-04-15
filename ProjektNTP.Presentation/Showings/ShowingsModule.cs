@@ -52,13 +52,16 @@ public static class ShowingsModule
                 if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
                 var isShowingUpdated = await service.UpdateShowingById(id, showing);
-                return isShowingUpdated ? Results.CreatedAtRoute("GetShowingById", id) : Results.NotFound();
+                return isShowingUpdated is not null
+                    ? Results.Ok($"Showing with id: {isShowingUpdated} has been updated successfully.")
+                    : Results.NotFound();
 
             })
             .WithName("UpdateShowingById")
             .Accepts<CreateShowingDto>("application/json")
-            .Produces<Guid>(201)
+            .Produces<Guid?>()
             .Produces<IEnumerable<ValidationFailure>>(400)
+            .Produces(404)
             .WithTags("Showings");
 
         app.MapDelete("showings/{id:guid}", async (Guid id, IShowingService service) =>
