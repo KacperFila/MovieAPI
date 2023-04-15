@@ -31,27 +31,26 @@ public class MovieRepository : IMovieRepository
         return await Task.FromResult(movie);
     }
 
-    public async Task<bool> UpdateMovieById(Guid id, Movie movie)
+    public async Task<Guid?> UpdateMovieById(Guid id, Movie movie)
     {
         var updatedMovie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
-        if (updatedMovie is null) return await Task.FromResult(false);
+        if (updatedMovie is null) return await Task.FromResult<Guid?>(null);
 
         updatedMovie.Name = movie.Name;
         updatedMovie.ReleasedDate = movie.ReleasedDate;
         updatedMovie.Duration = movie.Duration;
 
         await _context.SaveChangesAsync();
-        return await Task.FromResult(true);
+        return await Task.FromResult(updatedMovie.Id);
     }
 
     public async Task<bool> DeleteMovie(Guid id)
     {
         var userToDelete = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
-
         if (userToDelete is null) return await Task.FromResult(false);
+        
         _context.Remove(userToDelete);
         await _context.SaveChangesAsync();
         return await Task.FromResult(true);
-
     }
 }

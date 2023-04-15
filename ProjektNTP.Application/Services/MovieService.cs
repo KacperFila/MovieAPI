@@ -33,11 +33,11 @@ public class MovieService : IMovieService
         return await Task.FromResult(movieDto);
     }
 
-    public async Task<bool> UpdateMovieById(Guid id, CreateMovieDto movie)
+    public async Task<Guid?> UpdateMovieById(Guid id, CreateMovieDto newMovie)
     {
-        var userToUpdate = _mapper.Map<Domain.Entities.Movie>(movie);
-        var updatedUser = await _repository.UpdateMovieById(id, userToUpdate);
-        return await Task.FromResult(updatedUser);
+        var newMovieDto = _mapper.Map<Domain.Entities.Movie>(newMovie);
+        var updatedMovie = await _repository.UpdateMovieById(id, newMovieDto);
+        return await Task.FromResult(updatedMovie);
     }
 
     public async Task<bool> DeleteMovie(Guid id)

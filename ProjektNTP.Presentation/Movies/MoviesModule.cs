@@ -18,7 +18,6 @@ public static class MoviesModule
 
                     var addedMovie = await service.CreateMovie(movie);
                     return Results.Created("movies/", addedMovie);
-
                 })
             .WithName("CreateMovie")
             .Accepts<CreateMovieDto>("application/json")
@@ -33,7 +32,7 @@ public static class MoviesModule
             return movies is not null ?  Results.Ok(movies) : Results.NotFound();
         })
             .WithName("GetAllMovies")
-            .Produces<List<GetMovieDto?>>()
+            .Produces<List<GetMovieDto>?>()
             .Produces(404)
             .WithTags("Movies");
         
@@ -51,12 +50,16 @@ public static class MoviesModule
             {
                 var validationResult = await validator.ValidateAsync(movie);
                 if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-            var updatedMovie = await service.UpdateMovieById(id, movie);
-            return updatedMovie ?  Results.Ok(id) : Results.NotFound();
-        })
+                
+                var updatedMovie = await service.UpdateMovieById(id, movie);
+                return updatedMovie is not null
+                    ? Results.Ok($"Movie with id: {updatedMovie} has been updated successfully.")
+                    : Results.NotFound();
+            })
             .WithName("UpdateMovieById")
-            .Produces<Guid>()
-            .Produces<IEnumerable<ValidationFailure>>(404)
+            .Produces<Guid?>()
+            .Produces<IEnumerable<ValidationFailure>>(400)
+            .Produces(404)
             .WithTags("Movies");
 
         app.MapDelete("movies/{id:guid}", async (IMovieService service, Guid id) =>
@@ -67,6 +70,6 @@ public static class MoviesModule
             .WithName("DeleteMovieById")
             .Produces(204)
             .Produces(404)
-            .WithTags("Movies");;
+            .WithTags("Movies");
     }
 }
