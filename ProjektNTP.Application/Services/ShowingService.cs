@@ -16,29 +16,31 @@ public class ShowingService : IShowingService
         _mapper = mapper;
     }
 
-    public async Task<Guid> CreateShowing(CreateShowingDto showing)
+    public async Task<Guid> CreateShowing(CreateShowingDto newShowing)
     {
-        var userToCreate = _mapper.Map<Domain.Entities.Showing>(showing);
-        var createdUser = await _repository.CreateShowing(userToCreate);
-        return await Task.FromResult(createdUser);
+        var newShowingDto = _mapper.Map<Domain.Entities.Showing>(newShowing);
+        var createdShowing = await _repository.CreateShowing(newShowingDto);
+        return await Task.FromResult(createdShowing);
     }
 
     public async Task<List<GetShowingDto>> GetAllShowings()
     {
-        var showings = _mapper.Map<List<GetShowingDto>>(await _repository.GetAllShowings());
-        return await Task.FromResult(showings);
+        var showings = await _repository.GetAllShowings();
+        var showingsDto = _mapper.Map<List<GetShowingDto>>(showings);
+        return await Task.FromResult(showingsDto);
     }
 
     public async Task<GetShowingDto> GetShowingById(Guid id)
     {
-        var showing = _mapper.Map<GetShowingDto>(await _repository.GetShowingById(id));
-        return await Task.FromResult(showing);
+        var showing = await _repository.GetShowingById(id);
+        var showingDto = _mapper.Map<GetShowingDto>(showing);
+        return await Task.FromResult(showingDto);
     }
 
-    public async Task<bool> UpdateShowingById(Guid id, CreateShowingDto showing)
+    public async Task<bool> UpdateShowingById(Guid id, CreateShowingDto newShowing)
     {
-        var showingToUpdate = _mapper.Map<Domain.Entities.Showing>(showing);
-        var isShowingUpdated = await _repository.UpdateShowingById(id, showingToUpdate);
+        var newShowingDto = _mapper.Map<Domain.Entities.Showing>(newShowing);
+        var isShowingUpdated = await _repository.UpdateShowingById(id, newShowingDto);
         return await Task.FromResult(isShowingUpdated);
     }
 

@@ -17,7 +17,7 @@ public static class ShowingsModule
                     if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
                     var createdShowing = await service.CreateShowing(showing);
-                    return Results.Created("showings/", createdShowing);
+                    return Results.CreatedAtRoute("GetShowingById", new {id = createdShowing});
                 })
             .WithName("CreateShowing")
             .Accepts<CreateShowingDto>("application/json")
@@ -66,8 +66,7 @@ public static class ShowingsModule
                 return isShowingDeleted ? Results.NoContent() : Results.NotFound();
             })
             .WithName("DeleteShowingById")
-            .Produces<bool>(204)
-            .Produces<bool>(404)
+            .Produces<bool>()
             .WithTags("Showings");
     }
 }
