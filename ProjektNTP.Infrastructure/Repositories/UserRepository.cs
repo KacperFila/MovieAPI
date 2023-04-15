@@ -17,7 +17,7 @@ public class UserRepository : IUserRepository
     {
         await _context.AddAsync(user);
         await _context.SaveChangesAsync();
-        return user.Id;
+        return await Task.FromResult(user.Id);
     }
 
     public async Task<List<User>?> GetAllUsers()
@@ -26,7 +26,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .ToListAsync();
-        return users;
+        return await Task.FromResult(users);
     }
 
     public async Task<User?> GetUserById(Guid id)
@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .FirstOrDefaultAsync(u => u.Id == id);
-        return user;
+        return await Task.FromResult(user);
     }
 
     public async Task<bool> DeleteUserById(Guid id)
@@ -49,21 +49,21 @@ public class UserRepository : IUserRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> UpdateUserById(Guid id, User user)
+    public async Task<Guid?> UpdateUserById(Guid id, User newUser)
     {
         var userToUpdate = await _context.Users
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .FirstOrDefaultAsync(u => u.Id == id);
-        if (userToUpdate is null) return await Task.FromResult(false);
+        if (userToUpdate is null) return await Task.FromResult<Guid?>(null);
         
-        userToUpdate.UserContactDetails = user.UserContactDetails;
-        userToUpdate.FirstName = user.FirstName;
-        userToUpdate.LastName = user.LastName;
-        userToUpdate.RoleId = user.RoleId;
+        userToUpdate.UserContactDetails = newUser.UserContactDetails;
+        userToUpdate.FirstName = newUser.FirstName;
+        userToUpdate.LastName = newUser.LastName;
+        userToUpdate.RoleId = newUser.RoleId;
 
         await _context.SaveChangesAsync();
-        return await Task.FromResult(true);
+        return await Task.FromResult(userToUpdate.Id);
     }
 }
 

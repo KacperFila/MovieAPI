@@ -30,23 +30,22 @@ public class UserService : IUserService
                 PhoneNumber = user.UserContactDetails.PhoneNumber
             }
         };
-        var result = await _userRepository.Create(userToAdd);
-        return result;
+        var addedUser = await _userRepository.Create(userToAdd);
+        return await Task.FromResult(addedUser);
     }
 
-    public async Task<List<GetUserDto>> GetAllUsers()
+    public async Task<List<GetUserDto>?> GetAllUsers()
     {
-        var result = await _userRepository.GetAllUsers();
-
-        var resultDto = _mapper.Map<List<GetUserDto>>(result);
-        return resultDto;
+        var users = await _userRepository.GetAllUsers();
+        var usersDto = _mapper.Map<List<GetUserDto>>(users);
+        return await Task.FromResult(usersDto);
     }
 
-    public async Task<GetUserDto> GetUserById(Guid id)
+    public async Task<GetUserDto?> GetUserById(Guid id)
     {
-        var result = await _userRepository.GetUserById(id);
-        var resultDto = _mapper.Map<GetUserDto>(result);
-        return resultDto;
+        var user = await _userRepository.GetUserById(id);
+        var userDto = _mapper.Map<GetUserDto>(user);
+        return await Task.FromResult(userDto);
     }
 
     public async Task<bool> DeleteUserById(Guid id)
@@ -55,10 +54,10 @@ public class UserService : IUserService
         return await Task.FromResult(deletedUser);
     }
 
-    public async Task<bool> UpdateUserById(Guid id, CreateUserDto userDto)
+    public async Task<Guid?> UpdateUserById(Guid id, CreateUserDto newUser)
     {
-        var mappedUser = _mapper.Map<Entities.User>(userDto);
-        var updatedUser = await _userRepository.UpdateUserById(id, mappedUser);
-        return updatedUser ? await Task.FromResult(true) : await Task.FromResult(false);
+        var newUserDto = _mapper.Map<Entities.User>(newUser);
+        var updatedUser = await _userRepository.UpdateUserById(id, newUserDto);
+        return await Task.FromResult(updatedUser);
     }
 }
