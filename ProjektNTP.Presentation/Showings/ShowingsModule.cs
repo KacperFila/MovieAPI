@@ -52,7 +52,8 @@ public static class ShowingsModule
                 if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
                 var isShowingUpdated = await service.UpdateShowingById(id, showing);
-                return isShowingUpdated ? Results.Ok() : Results.NotFound();
+                return isShowingUpdated ? Results.CreatedAtRoute("GetShowingById", id) : Results.NotFound();
+
             })
             .WithName("UpdateShowingById")
             .Accepts<CreateShowingDto>("application/json")
