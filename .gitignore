@@ -24,8 +24,6 @@
 *.suo
 *.user
 .vs/
-[Bb]in/
-[Oo]bj/
 _UpgradeReport_Files/
 [Pp]ackages/
 
@@ -35,17 +33,6 @@ Desktop.ini
 
 *.dll
 *.cache
-*.dll
-*.dll
-*.pdb
-*.pdb
-*.cache
+*.txt
 *.info
-*.info
-*.dll
-*.pdb
-*.dll
-*.pdb
-*.pdb
-*.cache
-*.pdb
+
