@@ -42,27 +42,28 @@ public class UserRepository : IUserRepository
     {
         var userToDelete = await _context.Users
             .FirstOrDefaultAsync(u => u.Id == id);
-
+        
         if (userToDelete == null) return await Task.FromResult(false);
         _context.Remove(userToDelete);
         await _context.SaveChangesAsync();
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> UpdateUserById(Guid id, User user)
+    public async Task<Guid?> UpdateUserById(Guid id, User newUser)
     {
         var userToUpdate = await _context.Users
             .Include(u => u.Role)
             .Include(u => u.UserContactDetails)
             .FirstOrDefaultAsync(u => u.Id == id);
-        if (userToUpdate is null) return await Task.FromResult(false);
-
-        userToUpdate.UserContactDetails = user.UserContactDetails;
-        userToUpdate.FirstName = user.FirstName;
-        userToUpdate.LastName = user.LastName;
-        userToUpdate.RoleId = user.RoleId;
+        if (userToUpdate is null) return await Task.FromResult<Guid?>(null);
+        
+        userToUpdate.UserContactDetails = newUser.UserContactDetails;
+        userToUpdate.FirstName = newUser.FirstName;
+        userToUpdate.LastName = newUser.LastName;
+        userToUpdate.RoleId = newUser.RoleId;
 
         await _context.SaveChangesAsync();
-        return await Task.FromResult(true);
+        return await Task.FromResult(userToUpdate.Id);
     }
 }
+
