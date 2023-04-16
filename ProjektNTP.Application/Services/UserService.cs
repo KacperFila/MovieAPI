@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using ProjektNTP.Application.User.Dtos;
 using ProjektNTP.Domain.Abstractions;
-using ProjektNTP.Entities;
 
 namespace ProjektNTP.Application.Services;
 
@@ -9,51 +9,53 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly IPasswordHasher<Domain.Entities.User> _passwordHasher;
+    
 
-    public UserService(IUserRepository userRepository, IMapper mapper)
+    public UserService(IUserRepository userRepository, IMapper mapper, IPasswordHasher<Domain.Entities.User> passwordHasher)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _passwordHasher = passwordHasher;
     }
 
-    public async Task<Guid> Create(CreateUserDto user)
+    public async Task<Guid?> Register(CreateUserDto newUserDto)
     {
-        var userToAdd = new Entities.User()
+        var userToAdd = new Domain.Entities.User()
         {
-            Id = user.Id,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            RoleId = user.RoleId,
-            UserContactDetails = new UserContactDetails()
-            {
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber
-            }
+            Id = newUserDto.Id,
+            FirstName = newUserDto.FirstName,
+            LastName = newUserDto.LastName,
+            RoleId = newUserDto.RoleId,
+            Email = newUserDto.Email
         };
-        var addedUser = await _userRepository.Create(userToAdd);
-        return await Task.FromResult(addedUser);
+        var hashedPassword = _passwordHasher.HashPassword(userToAdd, newUserDto.Password);
+        userToAdd.PasswordHash = hashedPassword;
+        var result = await _userRepository.Register(userToAdd);
+        return result is not null ? await Task.FromResult(result) : await Task.FromResult<Guid?>(null);
     }
 
     public async Task<List<GetUserDto>?> GetAllUsers()
     {
-        var users = await _userRepository.GetAllUsers();
-        var usersDto = _mapper.Map<List<GetUserDto>>(users);
-        return await Task.FromResult(usersDto);
+        var result = await _userRepository.GetAllUsers();
+
+        var resultDto = _mapper.Map<List<GetUserDto>>(result);
+        return resultDto;
     }
 
     public async Task<GetUserDto?> GetUserById(Guid id)
     {
-        var user = await _userRepository.GetUserById(id);
-        var userDto = _mapper.Map<GetUserDto>(user);
-        return await Task.FromResult(userDto);
+        var result = await _userRepository.GetUserById(id);
+        var resultDto = _mapper.Map<GetUserDto>(result);
+        return resultDto;
     }
 
 
-    public async Task<Guid?> UpdateUserById(Guid id, CreateUserDto newUser)
+    public async Task<Guid?> UpdateUserById(Guid id, CreateUserDto userDto)
     {
-        var newUserDto = _mapper.Map<Entities.User>(newUser);
-        var updatedUser = await _userRepository.UpdateUserById(id, newUserDto);
-        return await Task.FromResult(updatedUser);
+        var mappedUser = _mapper.Map<Domain.Entities.User>(userDto);
+        var updatedUser = await _userRepository.UpdateUserById(id, mappedUser);
+        return updatedUser is not null ? await Task.FromResult(updatedUser) : await Task.FromResult<Guid?>(null);
     }
     public async Task<bool> DeleteUserById(Guid id)
     {

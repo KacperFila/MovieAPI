@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjektNTP.Domain;
 using ProjektNTP.Domain.Abstractions;
 using ProjektNTP.Domain.Entities;
 

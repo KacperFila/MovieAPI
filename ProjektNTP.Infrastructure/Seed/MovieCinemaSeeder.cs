@@ -1,6 +1,6 @@
 ﻿using Bogus;
+using ProjektNTP.Domain;
 using ProjektNTP.Domain.Entities;
-using ProjektNTP.Entities;
 
 namespace ProjektNTP.Infrastructure.Seeders;
 

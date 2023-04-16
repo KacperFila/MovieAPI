@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjektNTP;
+using ProjektNTP.Domain;
 
 #nullable disable
 
-namespace ProjektNTP.Domain.Migrations
+namespace ProjektNTP.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230416080312_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +117,23 @@ namespace ProjektNTP.Domain.Migrations
                     b.ToTable("Reservations");
                 });
 
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Showing", b =>
                 {
                     b.Property<Guid>("Id")
@@ -138,29 +158,15 @@ namespace ProjektNTP.Domain.Migrations
                     b.ToTable("Showings");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.Role", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -170,12 +176,21 @@ namespace ProjektNTP.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserContactDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserContactDetailsId");
 
                     b.ToTable("Users");
                 });
@@ -194,13 +209,7 @@ namespace ProjektNTP.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("UsersContactDetails");
                 });
@@ -224,7 +233,7 @@ namespace ProjektNTP.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjektNTP.Entities.User", "User")
+                    b.HasOne("ProjektNTP.Domain.Entities.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,26 +263,23 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
-                    b.HasOne("ProjektNTP.Entities.Role", "Role")
-                        .WithMany("Users")
+                    b.HasOne("ProjektNTP.Domain.Entities.Role", "Role")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.UserContactDetails", b =>
-                {
-                    b.HasOne("ProjektNTP.Entities.User", "User")
-                        .WithOne("UserContactDetails")
-                        .HasForeignKey("ProjektNTP.Entities.UserContactDetails", "UserId")
+                    b.HasOne("ProjektNTP.Entities.UserContactDetails", "UserContactDetails")
+                        .WithMany()
+                        .HasForeignKey("UserContactDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Role");
+
+                    b.Navigation("UserContactDetails");
                 });
 
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Cinema", b =>
@@ -291,17 +297,9 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
                     b.Navigation("Reservations");
-
-                    b.Navigation("UserContactDetails")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

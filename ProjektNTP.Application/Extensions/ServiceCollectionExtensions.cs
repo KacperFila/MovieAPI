@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ProjektNTP.Application.Mappers;
 using ProjektNTP.Application.Services;
@@ -15,9 +16,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<IShowingService, ShowingService>();
+        services.AddScoped<IPasswordHasher<Domain.Entities.User>, PasswordHasher<Domain.Entities.User>>();
+        services.AddValidatorsFromAssemblyContaining<AddressValidator>();
 
-        services.AddValidatorsFromAssemblyContaining<UserValidator>();
-
-        services.AddAutoMapper(typeof(UserMappingProfile));
+        services.AddAutoMapper(typeof(ShowingMappingProfile));
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using ProjektNTP.Domain;
 using ProjektNTP.Domain.Abstractions;
 using ProjektNTP.Infrastructure.Repositories;
 
@@ -11,5 +13,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<IShowingRepository, ShowingRepository>();
+        services.AddDefaultIdentity<IdentityUser>()
+            .AddEntityFrameworkStores<AppDbContext>();
+        
     }
 }

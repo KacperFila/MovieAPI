@@ -15,3 +15,5 @@ C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\n
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\refint\ProjektNTP.Infrastructure.dll
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.pdb
 C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ref\ProjektNTP.Infrastructure.dll
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\bin\Debug\net7.0\ProjektNTP.Infrastructure.runtimeconfig.json
+C:\Users\kacpe\Documents\GitHub\ProjektNTP\ProjektNTP.Infrastructure\obj\Debug\net7.0\ProjektNTP.Infrastructure.genruntimeconfig.cache
