@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ProjektNTP;
 using ProjektNTP.Application.Extensions;
+using ProjektNTP.Domain;
 using ProjektNTP.Infrastructure.Extensions;
+using ProjektNTP.Infrastructure.Seed;
 using ProjektNTP.Infrastructure.Seeders;
 using ProjektNTP.Movies;
 using ProjektNTP.Showings;

@@ -1,16 +1,13 @@
-﻿using ProjektNTP.Domain.Entities;
-
-namespace ProjektNTP.Entities;
+﻿namespace ProjektNTP.Domain.Entities;
 
 public class User
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
-    public UserContactDetails UserContactDetails { get; set; } = default!;
-
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public Role Role { get; set; } = default!;
-    public Guid RoleId { get; set; }
+    public string Email { get; set; }  = default!;
+    public string PasswordHash { get; set; } = default!;
+    public int RoleId { get; set; }
+    public virtual Role Role { get; set; } = default!;
     public List<Reservation>? Reservations { get; set; }
 }

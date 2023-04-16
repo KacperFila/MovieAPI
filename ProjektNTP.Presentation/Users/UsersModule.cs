@@ -15,9 +15,12 @@ public static class UsersModule
 
                 if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
-                var userCreated = await service.Create(user);
-                return Results.Created("users/", userCreated);
-            })
+                var userCreated = await service.Register(user);
+
+                return userCreated is not null
+                    ? Results.CreatedAtRoute("GetUserById", new { id = userCreated })
+                    : Results.BadRequest($"User with email : {user.Email} already exists.");
+                })
             .WithName("CreateUser")
             .Accepts<CreateUserDto>("application/json")
             .Produces<Guid>(201)
@@ -54,20 +57,20 @@ public static class UsersModule
             .Produces(404)
             .WithTags("Users");
 
-        app.MapPut("users/{id:guid}",
-                async (IUserService service, Guid id, CreateUserDto user, IValidator<CreateUserDto> validator) =>
-                {
-                    var validationResult = await validator.ValidateAsync(user);
-                    if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-
-                    user.Id = id;
-                    var updatedResult = await service.UpdateUserById(id, user);
-                    return updatedResult ? Results.Ok() : Results.BadRequest($"No user with id: {id} was found!");
-                })
-            .WithName("UpdateUserById")
-            .Accepts<CreateUserDto>("application/json")
-            .Produces(200)
-            .Produces(404)
-            .WithTags("Users");
+        // app.MapPut("users/{id:guid}",
+        //         async (IUserService service, Guid id, CreateUserDto user, IValidator<CreateUserDto> validator) =>
+        //         {
+        //             var validationResult = await validator.ValidateAsync(user);
+        //             if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
+        //
+        //             user.Id = id;
+        //             var updatedResult = await service.UpdateUserById(id, user);
+        //             return updatedResult ? Results.Ok() : Results.BadRequest($"No user with id: {id} was found!");
+        //         })
+        //     .WithName("UpdateUserById")
+        //     .Accepts<CreateUserDto>("application/json")
+        //     .Produces(200)
+        //     .Produces(404)
+        //     .WithTags("Users");
     }
 }

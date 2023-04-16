@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjektNTP;
+using ProjektNTP.Domain;
 
 #nullable disable
 
-namespace ProjektNTP.Domain.Migrations
+namespace ProjektNTP.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230323211734_MovieCinemaReservationShowingAdd")]
-    partial class MovieCinemaReservationShowingAdd
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,6 +114,23 @@ namespace ProjektNTP.Domain.Migrations
                     b.ToTable("Reservations");
                 });
 
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Showing", b =>
                 {
                     b.Property<Guid>("Id")
@@ -141,49 +155,7 @@ namespace ProjektNTP.Domain.Migrations
                     b.ToTable("Showings");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.UserContactDetails", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,19 +165,26 @@ namespace ProjektNTP.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("UsersContactDetails");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Cinema", b =>
@@ -227,7 +206,7 @@ namespace ProjektNTP.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjektNTP.Entities.User", "User")
+                    b.HasOne("ProjektNTP.Domain.Entities.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -257,26 +236,15 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
-                    b.HasOne("ProjektNTP.Entities.Role", "Role")
-                        .WithMany("Users")
+                    b.HasOne("ProjektNTP.Domain.Entities.Role", "Role")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.UserContactDetails", b =>
-                {
-                    b.HasOne("ProjektNTP.Entities.User", "User")
-                        .WithOne("UserContactDetails")
-                        .HasForeignKey("ProjektNTP.Entities.UserContactDetails", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjektNTP.Domain.Entities.Cinema", b =>
@@ -294,17 +262,9 @@ namespace ProjektNTP.Domain.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("ProjektNTP.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("ProjektNTP.Entities.User", b =>
+            modelBuilder.Entity("ProjektNTP.Domain.Entities.User", b =>
                 {
                     b.Navigation("Reservations");
-
-                    b.Navigation("UserContactDetails")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

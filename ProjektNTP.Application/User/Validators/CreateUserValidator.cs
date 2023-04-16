@@ -1,17 +1,32 @@
 ﻿using FluentValidation;
 using ProjektNTP.Application.User.Dtos;
+using ProjektNTP.Domain;
 
 namespace ProjektNTP.Application.User.Validators;
 
 public class CreateUserValidator : AbstractValidator<CreateUserDto>
 {
-    public CreateUserValidator()
+    private readonly AppDbContext _context;
+    public CreateUserValidator(AppDbContext dbcontext)
     {
+        _context = dbcontext;
         RuleFor(u => u.FirstName).Length(1, 20).WithMessage("First Name must be between 1 and 20!");
         RuleFor(u => u.LastName).Length(1, 20).WithMessage("Last Name must be between 1 and 20!");
         RuleFor(u => u.Email).EmailAddress().WithMessage("Email's format is not valid!");
-        RuleFor(u => u.PhoneNumber).Matches(@"(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)")
-            .WithMessage("Phone's number format is not valid!");
+        RuleFor(u => u.Email).Custom((value, context) =>
+        {
+            var emailInDb = _context.Users.Any(u => u.Email == value);
+            if (emailInDb)
+            {
+                context.AddFailure("Email", "Given email is currently in use.");
+            }
+        });
+        
         RuleFor(u => u.RoleId).NotEmpty();
+
+        RuleFor(u => u.Password).NotEmpty().MinimumLength(8)
+            .WithMessage("Password must contain at least 8 characters.");
+        RuleFor(u => u.confirmPassword).Equal(u => u.Password).WithMessage("Confirmed password is not identical.");
+
     }
 }
