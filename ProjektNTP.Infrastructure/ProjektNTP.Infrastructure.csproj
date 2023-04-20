@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="Bogus" Version="34.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.3.23174.2">
@@ -21,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Auth" />
       <Folder Include="Migrations" />
     </ItemGroup>
 

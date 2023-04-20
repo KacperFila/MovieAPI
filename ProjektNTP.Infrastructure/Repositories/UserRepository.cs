@@ -37,6 +37,14 @@ public class UserRepository : IUserRepository
         return await Task.FromResult(user);
     }
     
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        var user = await _context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Email == email);
+        return await Task.FromResult(user);
+    }
+    
     public async Task<bool> DeleteUserById(Guid id)
     {
         var userToDelete = await _context.Users

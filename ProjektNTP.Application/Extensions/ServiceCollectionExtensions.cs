@@ -18,7 +18,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IShowingService, ShowingService>();
         services.AddScoped<IPasswordHasher<Domain.Entities.User>, PasswordHasher<Domain.Entities.User>>();
         services.AddValidatorsFromAssemblyContaining<AddressValidator>();
-
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddAutoMapper(typeof(ShowingMappingProfile));
+        
     }
 }

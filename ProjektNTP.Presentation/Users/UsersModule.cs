@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
+using ValidationFailure = FluentValidation.Results.ValidationFailure;
 
 namespace ProjektNTP.Users;
 
 public static class UsersModule
 {
+    
     public static void AddUsersEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("users", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
@@ -57,6 +58,17 @@ public static class UsersModule
             .Produces(404)
             .WithTags("Users");
 
+        app.MapPost("login", async (LogUserDto userDto, IAuthenticationService authenticationService, IJwtProvider provider) =>
+        {
+            var user = await authenticationService.AuthenticateAsync(userDto);
+            if (user == null)
+            {
+                return Results.Unauthorized();
+            }
+
+            var tokenResult = provider.GenerateJwt(user);
+            return tokenResult is not null ? Results.Ok(tokenResult) : Results.Unauthorized();
+        });
         // app.MapPut("users/{id:guid}",
         //         async (IUserService service, Guid id, CreateUserDto user, IValidator<CreateUserDto> validator) =>
         //         {
