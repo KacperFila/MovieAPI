@@ -19,7 +19,7 @@ public class AuthenticationService : IAuthenticationService
         _provider = provider;
     }
 
-    public async Task<Domain.Entities.User?> AuthenticateAsync(LogUserDto logUserDto)
+    public async Task<Domain.Entities.User?> VerifyUser(LogUserDto logUserDto)
     {
         var user = await _userRepository.GetUserByEmail(logUserDto.Email);
         if (user is null || _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, logUserDto.Password) == PasswordVerificationResult.Failed)

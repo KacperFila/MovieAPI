@@ -4,5 +4,5 @@ namespace ProjektNTP.Application.Services;
 
 public interface IAuthenticationService
 {
-    public Task<Domain.Entities.User?> AuthenticateAsync(LogUserDto logUserDto);
+    public Task<Domain.Entities.User?> VerifyUser(LogUserDto logUserDto);
 }

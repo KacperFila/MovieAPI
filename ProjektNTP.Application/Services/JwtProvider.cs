@@ -19,8 +19,9 @@ internal sealed class JwtProvider : IJwtProvider
     {
         var claims = new Claim[]
         {
-            new (JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new (JwtRegisteredClaimNames.Email, user.Email)
+            new (ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new (ClaimTypes.Email, user.Email), 
+            new (ClaimTypes.Role, user.Role.Name)
         };
 
         var signingCredentials = new SigningCredentials(
@@ -38,7 +39,7 @@ internal sealed class JwtProvider : IJwtProvider
         );
 
         string tokenValue = new JwtSecurityTokenHandler()
-            .WriteToken(token);
+            .WriteToken(token).Replace("\"", "");
 
         return tokenValue;
     }

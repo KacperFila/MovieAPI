@@ -6,7 +6,7 @@ using ProjektNTP.Application.Services;
 
 namespace ProjektNTP.OptionsSetup;
 
-public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
 
@@ -15,9 +15,11 @@ public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
         _jwtOptions = jwtOptions.Value;
     }
 
-    public void Configure(JwtBearerOptions options)
+
+
+    public void Configure(string? name, JwtBearerOptions options)
     {
-        options.TokenValidationParameters = new()
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -28,5 +30,10 @@ public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
         };
+    }
+
+    public void Configure(JwtBearerOptions options)
+    {
+        throw new NotImplementedException();
     }
 }
