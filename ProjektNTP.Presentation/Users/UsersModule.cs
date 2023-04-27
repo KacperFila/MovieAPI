@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
+using ValidationFailure = FluentValidation.Results.ValidationFailure;
 
 namespace ProjektNTP.Users;
 
 public static class UsersModule
 {
+    
     public static void AddUsersEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("users", async (CreateUserDto user, IUserService service, IValidator<CreateUserDto> validator) =>
@@ -32,6 +33,7 @@ public static class UsersModule
                 var result = await service.GetAllUsers();
                 return result.Any() ? Results.Ok(result) : Results.NotFound();
             })
+            .RequireAuthorization(builder => builder.RequireRole("Administrator"))
             .WithName("GetAllUsers")
             .Produces<List<GetUserDto>>()
             .Produces(404)
@@ -42,6 +44,7 @@ public static class UsersModule
                 var result = await service.GetUserById(id);
                 return result is not null ? Results.Ok(result) : Results.NotFound();
             })
+            .RequireAuthorization()
             .WithName("GetUserById")
             .Produces<GetUserDto>()
             .Produces(404)
@@ -52,25 +55,39 @@ public static class UsersModule
                 var deletedResult = await service.DeleteUserById(id);
                 return deletedResult ? Results.NoContent() : Results.BadRequest($"No user with id: {id} was found!");
             })
+            .RequireAuthorization()
             .WithName("DeleteUserById")
             .Produces(204)
             .Produces(404)
             .WithTags("Users");
 
-        // app.MapPut("users/{id:guid}",
-        //         async (IUserService service, Guid id, CreateUserDto user, IValidator<CreateUserDto> validator) =>
-        //         {
-        //             var validationResult = await validator.ValidateAsync(user);
-        //             if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-        //
-        //             user.Id = id;
-        //             var updatedResult = await service.UpdateUserById(id, user);
-        //             return updatedResult ? Results.Ok() : Results.BadRequest($"No user with id: {id} was found!");
-        //         })
-        //     .WithName("UpdateUserById")
-        //     .Accepts<CreateUserDto>("application/json")
-        //     .Produces(200)
-        //     .Produces(404)
-        //     .WithTags("Users");
+        app.MapPost("login", async (LogUserDto userDto, IAuthenticationService authenticationService, IJwtProvider provider) =>
+        {
+            var user = await authenticationService.VerifyUser(userDto);
+            if (user == null)
+            {
+                return Results.Unauthorized();
+            }
+
+            var tokenResult = provider.GenerateJwt(user);
+            return Results.Ok(tokenResult);
+        });
+        
+        app.MapPut("users/{id:guid}",
+                async (IUserService service, Guid id, UpdateUserDto user, IValidator<UpdateUserDto> validator) =>
+                {
+                    var validationResult = await validator.ValidateAsync(user);
+                    if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
+        
+                    user.Id = id;
+                    var updatedResult = await service.UpdateUserById(id, user);
+                    return updatedResult is not null ? Results.Ok() : Results.BadRequest($"No user with id: {id} was found!");
+                })
+            .RequireAuthorization()
+            .WithName("UpdateUserById")
+            .Accepts<UpdateUserDto>("application/json")
+            .Produces(200)
+            .Produces(404)
+            .WithTags("Users");
     }
 }

@@ -51,7 +51,7 @@ public class UserService : IUserService
     }
 
 
-    public async Task<Guid?> UpdateUserById(Guid id, CreateUserDto userDto)
+    public async Task<Guid?> UpdateUserById(Guid id, UpdateUserDto userDto)
     {
         var mappedUser = _mapper.Map<Domain.Entities.User>(userDto);
         var updatedUser = await _userRepository.UpdateUserById(id, mappedUser);

@@ -2,7 +2,6 @@
 using Microsoft.IdentityModel.Tokens;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.Showing.Dtos;
-using ProjektNTP.Application.Validators;
 using ProjektNTP.Domain.Abstractions;
 
 namespace ProjektNTP.Application.Showing.Validators;
