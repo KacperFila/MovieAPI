@@ -7,4 +7,5 @@ public class Movie
     public DateTime ReleasedDate { get; set; } = default!;
     public int Duration { get; set; } = default!;
     public List<Showing>? Showings { get; set; }
+    public Guid AddedById { get; set; }
 }

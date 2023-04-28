@@ -8,5 +8,5 @@ public class CreateUserDto
     public string Email { get; set; } = default!;
     public string Password { get; set; } = default!;
     public string confirmPassword { get; set; } = default!;
-    public int RoleId { get; set; } = 1;
+    public int RoleId { get; set; } = 2;
 }

@@ -8,4 +8,5 @@ public class Reservation
     public Showing Showing { get; set; } = default!;
     public Guid ShowingId { get; set; }
     public DateTime ReservationCreatedAt { get; set; } = DateTime.Now;
+    
 }

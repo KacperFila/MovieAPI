@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using ProjektNTP.Application.Authorization.Handlers;
 using ProjektNTP.Application.Mappers;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.Showing.Validators;
@@ -19,6 +21,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddAutoMapper(typeof(ShowingMappingProfile));
-        
+        services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
+        services.AddScoped<IAuthorizationHandler, IsOwnerOrAdminRequirementHandler>();
+        services.AddScoped<IUserContextService, UserContextService>();
     }
 }

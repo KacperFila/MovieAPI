@@ -36,3 +36,6 @@ Desktop.ini
 *.txt
 *.info
 
+*.pdb
+*.CopyComplete
+*.props

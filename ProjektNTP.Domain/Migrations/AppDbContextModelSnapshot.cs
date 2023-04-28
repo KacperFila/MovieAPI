@@ -75,6 +75,9 @@ namespace ProjektNTP.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AddedById")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 

@@ -1,9 +1,8 @@
-﻿using FluentValidation;
+﻿using System.Security.Claims;
+using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.AspNetCore.Http.HttpResults;
 using ProjektNTP.Application.Movie.Dtos;
 using ProjektNTP.Application.Services;
-using ProjektNTP.Domain.Entities;
 
 namespace ProjektNTP.Movies;
 
@@ -12,14 +11,16 @@ public static class MoviesModule
     public static void AddMoviesEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("movies",
-                async (CreateMovieDto movie, IMovieService service, IValidator<CreateMovieDto> validator) =>
+                async (CreateMovieDto movie, IMovieService service, IValidator<CreateMovieDto> validator, HttpContext context) =>
                 {
+                    var userId = Guid.Parse(context.User.FindFirst(c => c.Type ==  ClaimTypes.NameIdentifier)!.Value);
                     var validationResult = await validator.ValidateAsync(movie);
                     if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
-                    var addedMovie = await service.CreateMovie(movie);
+                    var addedMovie = await service.CreateMovie(movie, userId);
                     return Results.Created("movies/", addedMovie);
                 })
+            .RequireAuthorization()
             .WithName("CreateMovie")
             .Accepts<CreateMovieDto>("application/json")
             .Produces<Guid>()
@@ -47,13 +48,15 @@ public static class MoviesModule
             .Produces(404)
             .WithTags("Movies");
 
-        app.MapPut("movies/{id:guid}",
-                async (IMovieService service, Guid id, CreateMovieDto movie, IValidator<CreateMovieDto> validator) =>
+        app.MapPut("movies/{movieId:guid}",
+                async (IMovieService service, Guid movieId, CreateMovieDto movieDto, IValidator<CreateMovieDto> validator) =>
                 {
-                    var validationResult = await validator.ValidateAsync(movie);
-                    if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-                    var updatedMovie = await service.UpdateMovieById(id, movie);
-                    return updatedMovie ? Results.Ok(id) : Results.NotFound();
+                        var validationResult = await validator.ValidateAsync(movieDto);
+                        if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
+
+                        var updatedMovie = await service.UpdateMovieById(movieId, movieDto);
+                        return updatedMovie ? Results.Ok(movieId) : Results.NotFound();
+                    
                 })
             .WithName("UpdateMovieById")
             .Produces<Guid>()
@@ -62,13 +65,19 @@ public static class MoviesModule
 
         app.MapDelete("movies/{id:guid}", async (IMovieService service, Guid id) =>
             {
-                var deleteResult = await service.DeleteMovie(id);
-                return deleteResult ? Results.NoContent() : Results.NotFound();
+                try
+                {
+                    var deleteResult = await service.DeleteMovie(id);
+                    return deleteResult ? Results.NoContent() : Results.NotFound();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    return Results.StatusCode(403);
+                }
             })
             .WithName("DeleteMovieById")
             .Produces(204)
             .Produces(404)
             .WithTags("Movies");
-        ;
     }
 }

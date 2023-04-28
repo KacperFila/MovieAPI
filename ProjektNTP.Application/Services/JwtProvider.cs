@@ -38,8 +38,8 @@ internal sealed class JwtProvider : IJwtProvider
             signingCredentials
         );
 
-        string tokenValue = new JwtSecurityTokenHandler()
-            .WriteToken(token).Replace("\"", "");
+        var tokenValue = new JwtSecurityTokenHandler()
+            .WriteToken(token);
 
         return tokenValue;
     }

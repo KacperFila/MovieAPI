@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ProjektNTP.Application.Authorization.Policies;
 using ProjektNTP.Application.Services;
 using ProjektNTP.Application.User.Dtos;
 using ValidationFailure = FluentValidation.Results.ValidationFailure;
@@ -55,7 +56,6 @@ public static class UsersModule
                 var deletedResult = await service.DeleteUserById(id);
                 return deletedResult ? Results.NoContent() : Results.BadRequest($"No user with id: {id} was found!");
             })
-            .RequireAuthorization()
             .WithName("DeleteUserById")
             .Produces(204)
             .Produces(404)
